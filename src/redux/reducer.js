@@ -10,7 +10,7 @@ function setLoginPending(isLoginPending) {
   };
 }
 
-function setLoginSuccess(isLoinSuccess) {
+function setLoginSuccess(isLoginSuccess) {
   return {
     type: LOGIN_SUCCESS,
     isLoginSuccess
@@ -20,10 +20,10 @@ function setLoginSuccess(isLoinSuccess) {
 function setLoginError(loginError) {
   return {
     type: LOGIN_ERROR,
-    loginerror
+    loginError
   };
 }
-
+//Action creator
 export function login(email, password) {
   return dispatch => {
     dispatch(setLoginPending(false));
@@ -32,11 +32,11 @@ export function login(email, password) {
 
     sendLoginRequest(email, password)
       .then(success => {
-        dispatch(setLoginSuccess(true));
         dispatch(setLoginPending(false));
+        dispatch(setLoginSuccess(true));
       })
       .catch(err => {
-        dispatch(setLoginPending(true));
+        dispatch(setLoginPending(false));
         dispatch(setLoginError(err));
       });
   };
@@ -65,19 +65,21 @@ export default function reducer(
     case LOGIN_ERROR:
       return {
         ...state,
-        loginError: action.LOGIN_ERROR
+        loginError: action.loginError
       };
     default:
       return state;
   }
 }
 
-function sendLoginRequest(email, passsword) {
+function sendLoginRequest(email, password) {
   return new Promise((resolve, reject) => {
-    if (email === "hitesh@test.com" && password === "sam@123") {
-      return resolve(true);
-    } else {
-      return reject(new Error("Invalid Email or password"));
-    }
+    setTimeout(() => {
+      if (email === "hitesh@test.com" && password === "sam@123") {
+        return resolve(true);
+      } else {
+        return reject(new Error("Invalid Email or password"));
+      }
+    }, 3000);
   });
 }

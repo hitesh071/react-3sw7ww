@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import LoginForm from "./component/LoginForm/LoginForm";
+import LoginForm from "./Component/LoginForm/LoginForm";
 
 ReactDOM.render(
   <Provider store={store}>
